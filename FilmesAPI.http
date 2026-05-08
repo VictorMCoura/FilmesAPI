@@ -1,0 +1,7 @@
+# Base address for the FilmesAPI service
+@FilmesAPI_HostAddress = https://localhost:5119
+
+GET {{FilmesAPI_HostAddress}}
+Accept: application/json
+
+###

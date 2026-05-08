@@ -1,0 +1,34 @@
+# Pastas de compilação (Build)
+bin/
+obj/
+
+# Arquivos de usuário do Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Arquivos temporários e de cache
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+
+# Publish / Deploy
+Publish/
+publish/
+out/
+TestResults/
+
+# Logs
+*.log
+
+# Arquivos de banco de dados locais (se usar SQLite no futuro)
+*.db
+*.db-shm
+*.db-wal
+
+# Secrets de desenvolvimento (Opcional, mas recomendado)
+appsettings.Development.json 
+appsettings.json
