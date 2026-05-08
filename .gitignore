@@ -24,11 +24,11 @@ TestResults/
 # Logs
 *.log
 
-# Arquivos de banco de dados locais (se usar SQLite no futuro)
+# Arquivos de banco de dados locais 
 *.db
 *.db-shm
 *.db-wal
 
-# Secrets de desenvolvimento (Opcional, mas recomendado)
+# Secrets de desenvolvimento 
 appsettings.Development.json 
 appsettings.json
