@@ -6,9 +6,27 @@ namespace FilmesApi.Data;
 
 public class FilmeContext : DbContext
 {
-    public FilmeContext(DbContextOptions<FilmeContext> options) : base(options)
+    public FilmeContext(DbContextOptions<FilmeContext> options) : base(options){}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+        modelBuilder.Entity<Sessao>()
+            .HasKey(sessao => new {sessao.CinemaId, sessao.FilmeId});
+
+        modelBuilder.Entity<Sessao>()
+            .HasOne(sessao => sessao.Cinema)
+            .WithMany(cinema => cinema.Sessoes)
+            .HasForeignKey(sessao => sessao.CinemaId);
+
+        modelBuilder.Entity<Sessao>()
+            .HasOne(sessao => sessao.Filme)
+            .WithMany(fillme => fillme.Sessoes)
+            .HasForeignKey(sessao => sessao.FilmeId);
+
+        modelBuilder.Entity<Endereco>()
+            .HasOne(endereco => endereco.Cinema)
+            .WithOne(cinema => cinema.Endereco)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
     public DbSet<Filme> Filmes { get; set; }
