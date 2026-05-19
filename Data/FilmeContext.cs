@@ -1,15 +1,18 @@
 using FilmesApi.Models;
 using FilmesAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FilmesApi.Data;
 
-public class FilmeContext : DbContext
+public class FilmeContext : IdentityDbContext<User>
 {
     public FilmeContext(DbContextOptions<FilmeContext> options) : base(options){}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Sessao>()
             .HasKey(sessao => new {sessao.CinemaId, sessao.FilmeId});
 

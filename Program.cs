@@ -1,4 +1,6 @@
 using FilmesApi.Data;
+using FilmesAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -11,7 +13,12 @@ builder.Services.AddDbContext<FilmeContext>(options => options.
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<FilmeContext>()
+                .AddDefaultTokenProviders();
+
 builder.Services.AddControllers().AddNewtonsoftJson();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
