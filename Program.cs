@@ -1,5 +1,6 @@
 using FilmesApi.Data;
 using FilmesAPI.Models;
+using FilmesAPI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<FilmeContext>(options => options.
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddScoped<UserService>();
+
 builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<FilmeContext>()
                 .AddDefaultTokenProviders();
@@ -23,7 +26,6 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
