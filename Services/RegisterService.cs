@@ -8,12 +8,15 @@ public class UserService
     private IMapper _mapper;
     private UserManager<User> _userManager;
     private SignInManager<User> _singInManager;
+    private TokenService _tokenService;
 
-    public UserService(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager)
+    public UserService(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager,
+    TokenService tokenService)
     {
         _userManager = userManager;
         _mapper = mapper;
         _singInManager = signInManager;
+        _tokenService = tokenService;
     }
 
     public async Task Register(CreateUserDto createUserDto){
@@ -31,7 +34,7 @@ public class UserService
         }       
     }
 
-    public async Task Login(LoginUserDto dto)
+    public async Task<string> Login(LoginUserDto dto)
     {
         var resultado = await _singInManager.PasswordSignInAsync
                 (dto.Username, dto.Password, false, false);
@@ -39,5 +42,10 @@ public class UserService
         if(!resultado.Succeeded){
             throw new ApplicationException("Usuário não autenticado.");
         }
+        var user = _singInManager.UserManager.Users.FirstOrDefault(user=> user.NormalizedUserName == dto.Username.ToUpper());
+
+        var token =_tokenService.GenerateToken(user);
+
+        return token;
     }
 }
